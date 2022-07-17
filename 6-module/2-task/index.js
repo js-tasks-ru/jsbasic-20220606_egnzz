@@ -5,7 +5,11 @@ export default class ProductCard {
     this._product = product;
     this._pathImages = "/assets/images/products/";
     this._pathIcons = "/assets/images/icons/";
+    this.render();
+    this.plusButton();
+  }
 
+  render () {
     this._elem = createElement(`
     <div class="card">
       <div class="card__top">
@@ -22,14 +26,19 @@ export default class ProductCard {
     `);
   }
 
-  get elem () {
-
-    this.event = new CustomEvent("product-add", {
-      detail: this._product.id,
-      bubbles: true
+  plusButton() {
+    this._elem.querySelector('.card__button').addEventListener('click', (evt) => {
+      if (evt.target.closest('.card__button')) {
+        this.event = new CustomEvent("product-add", {
+          detail: this._product.id,
+          bubbles: true
+        });
+        this._elem.dispatchEvent(this.event);
+      }
     });
-    this._elem.dispatchEvent(this.event);
+  }
 
+  get elem () {
     return this._elem;
   }
 

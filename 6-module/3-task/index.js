@@ -5,69 +5,57 @@ export default class Carousel {
     this.slides = slides;
     this.activeSlide = 0;
     this.maxSlides = this.slides.length;
-    this.carouselMove = document.querySelector('.container');
 
     this.render();
-    document.addEventListener("DOMContentLoaded", (evt) => {
-      this.plusButton();
-      this.arrowRight();
-      this.arrowLeft();
-      this.arrowsVisibility();
-    });
+    this.plusButton();
+    this.arrowRight();
+    this.arrowLeft();
+    this.arrowsVisibility();
   }
 
   plusButton() {
-    this.button = document.querySelector(".carousel__inner");
-    this.button.addEventListener("click", (evt) => {
-      if (evt.target.parentElement.className.includes("button")) {
+    this._elem.querySelector(".carousel__inner").addEventListener("click", (evt) => {
+      if (evt.target.closest(".carousel__button")) {
         this.event = new CustomEvent("product-add", {
           detail: this.slides[Math.abs(this.activeSlide)].id,
           bubbles: true
         });
-        this.button.dispatchEvent(this.event);
+        this._elem.querySelector(".carousel__button").dispatchEvent(this.event);
       }
     });
-    this.button.addEventListener("product-add", (evt) => {
-    // console.log(evt.detail)
+    this._elem.querySelector(".carousel__button").addEventListener("product-add", (evt) => {
     });
   }
 
   arrowRight() {
-    this.rightArrow = document.querySelector(".carousel__arrow_right");
-    this.rightArrow.addEventListener("click", (evt) => {
+    this._elem.querySelector(".carousel__arrow_right").addEventListener("click", () => {
       this.activeSlide--;
-      evt.target
-        .parentElement
-        .parentElement
-        .querySelector(".carousel__inner")
-        .style
-        .transform = 'translateX(' + this.carouselMove.offsetWidth * this.activeSlide + 'px)';
+      this._elem.querySelector('.carousel__inner')
+          .style
+          .transform = 'translateX(' + this._elem.offsetWidth * this.activeSlide + 'px)';
       this.arrowsVisibility();
     });
   }
 
   arrowLeft() {
-    this.leftArrow = document.querySelector(".carousel__arrow_left");
-    this.leftArrow.addEventListener("click", (evt) => {
+    this._elem.querySelector(".carousel__arrow_left").addEventListener("click", () => {
       this.activeSlide++;
-      evt.target
-        .parentElement
-        .parentElement
-        .querySelector(".carousel__inner")
-        .style
-        .transform = 'translateX(' + this.carouselMove.offsetWidth * this.activeSlide + 'px)';
+      this._elem.querySelector('.carousel__inner')
+          .style
+          .transform = 'translateX(' + this._elem.offsetWidth * this.activeSlide + 'px)';
       this.arrowsVisibility();
     });
   }
 
   arrowsVisibility() {
-    this.right = document.querySelector(".carousel__arrow_right");
-    this.left = document.querySelector(".carousel__arrow_left");
+    this.right = this._elem.querySelector(".carousel__arrow_right");
+    this.left = this._elem.querySelector(".carousel__arrow_left");
 
     if (this.activeSlide <= (this.maxSlides - 1)) {
       this.right.style.display = 'none';
       this.left.style.display = '';
     }
+
     if (this.activeSlide >= 0) {
       this.right.style.display = '';
       this.left.style.display = 'none';
@@ -99,7 +87,7 @@ export default class Carousel {
         <div class="carousel__arrow carousel__arrow_left">
           <img src="/assets/images/icons/angle-left-icon.svg" alt="icon">
         </div>
-    <div class = "carousel__inner">
+    <div class = 'carousel__inner'>
     ${this.allSlides}
       </div>
      </div>`
@@ -109,4 +97,5 @@ export default class Carousel {
   get elem() { 
     return this._elem;
   }
+
 }

@@ -3,20 +3,16 @@ import createElement from '../../assets/lib/create-element.js';
 export default class RibbonMenu {
   constructor(categories) {
     this.categories = categories;
-
     this.render();
-    document.addEventListener("DOMContentLoaded", () => {
-      this.ribbonInner = document.querySelector(".ribbon__inner");
-      this.ribbonArrowRight = document.querySelector(".ribbon__arrow_right");
-      this.ribbonArrowLeft = document.querySelector(".ribbon__arrow_left");
-      this.scrollWidth = this.ribbonInner.scrollWidth;
-      this.ribbonInner = document.querySelector(".ribbon__inner");
-      this.ribbonItem = document.querySelectorAll(".ribbon__item");
-      this.buttonRight();
-      this.buttonLeft();
-      this.scroll();
-      this.choiseCat();
-    });
+    this.ribbonInner = this._elem.querySelector(".ribbon__inner");
+    this.ribbonArrowRight = this._elem.querySelector(".ribbon__arrow_right");
+    this.ribbonArrowLeft = this._elem.querySelector(".ribbon__arrow_left");
+    this.scrollWidth = this.ribbonInner.scrollWidth;
+    this.ribbonItem = this._elem.querySelectorAll(".ribbon__item");
+    this.buttonRight();
+    this.buttonLeft();
+    this.scroll();
+    this.choiseCat();
   }
 
   scroll () {
@@ -82,4 +78,5 @@ export default class RibbonMenu {
   get elem () {
     return this._elem;
   }
+
 }

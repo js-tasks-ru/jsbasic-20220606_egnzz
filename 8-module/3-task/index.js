@@ -29,17 +29,17 @@ export default class Cart {
   }
 
   updateProductCount(productId, amount) {
-    let findResult = this.cartItems.find(item => productId === item.product.id);
-    if (findResult) {
-      if(amount > 0) {
-        findResult.count++;
-        this.onProductUpdate(findResult);
+    let findResult = this.cartItems.findIndex(item => productId === item.product.id);
+    if (this.cartItems[findResult]) {
+      if (amount > 0) {
+        this.cartItems[findResult].count++;
+        this.onProductUpdate(this.cartItems[findResult]);
       }
-      else if(amount < 0) {
-        findResult.count--;
-        this.onProductUpdate(findResult);
-        if(findResult.count <= 0) {
-          this.cartItems.splice(this.cartItems.findIndex(item => productId === item.product.id)); 
+      else if (amount < 0) {
+        this.cartItems[findResult].count--;
+        this.onProductUpdate(this.cartItems[findResult]);
+        if (this.cartItems[findResult].count <= 0) {
+          this.cartItems.splice(findResult, 1);
         }
       }
     }

@@ -38,7 +38,7 @@ export default class ProductGrid {
     for (let item of this.products) {
       if(this.filters.noNuts) nnuts = (this.filters.noNuts !== item.nuts); else nnuts = true;
       if (this.filters.vegeterianOnly) vegan = (this.filters.vegeterianOnly === item.vegeterian); else vegan = true;
-      if (this.filters.maxSpiciness) spice = (this.filters.maxSpiciness >= item.spiciness); else spice = true;
+      if (this.filters.maxSpiciness + 1) spice = (this.filters.maxSpiciness + 1 >= item.spiciness + 1); else spice = true;
       if (this.filters.category) cat = (this.filters.category === item.category); else cat = true;
       
       if (nnuts && vegan && spice && cat) this._elem.querySelector('.products-grid__inner').append(this.productCards[i].elem);

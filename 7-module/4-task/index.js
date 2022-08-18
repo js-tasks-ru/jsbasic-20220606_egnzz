@@ -7,8 +7,8 @@ export default class StepSlider {
 
     this.render();
 
-    this._elem.querySelector(".slider__thumb").style.left = 0;
-    this._elem.querySelector(".slider__progress").style.width = 0;
+    this._elem.querySelector(".slider__thumb").style.left = ((this.value + 1) / this.steps * 100) + '%';
+    this._elem.querySelector(".slider__progress").style.width = ((this.value + 1) / this.steps * 100) + '%';
     this._elem.querySelector('.slider__value').innerHTML = this.value;
     this._elem.querySelector('.slider__steps').firstElementChild.classList.add('slider__step-active');
 

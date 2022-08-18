@@ -6,23 +6,27 @@ export default class RibbonMenu {
     this.render();
     this.ribbonInner = this._elem.querySelector(".ribbon__inner");
     this.ribbonArrowRight = this._elem.querySelector(".ribbon__arrow_right");
-    this.ribbonArrowLeft = this._elem.querySelector(".ribbon__arrow_left");
-    this.scrollWidth = this.ribbonInner.scrollWidth;
+    this.ribbonArrowLeft = this._elem.querySelector(".ribbon__arrow_left");   
     this.ribbonItem = this._elem.querySelectorAll(".ribbon__item");
     this.buttonRight();
     this.buttonLeft();
     this.scroll();
     this.choiseCat();
+
+    if (this.ribbonInner.scrollLeft === 0) {
+      this.ribbonArrowLeft.classList.remove("ribbon__arrow_visible");
+    } else (this.ribbonArrowLeft.classList.add("ribbon__arrow_visible"));
+
   }
 
   scroll () {
-    this.ribbonInner.addEventListener("scroll", (evt) => {
-      this.scrollRight = this.scrollWidth - this.ribbonInner.scrollLeft - this.ribbonInner.clientWidth;
+    this.ribbonInner.addEventListener("scroll", () => {
+      this.scrollRight = this.ribbonInner.scrollWidth - this.ribbonInner.scrollLeft - this.ribbonInner.clientWidth;
       if (this.scrollRight < 1) {
         this.ribbonArrowRight.classList.remove("ribbon__arrow_visible");
       } else (this.ribbonArrowRight.classList.add("ribbon__arrow_visible"));
 
-      if (this.ribbonInner.scrollLeft == 0) {
+      if (this.ribbonInner.scrollLeft === 0) {
         this.ribbonArrowLeft.classList.remove("ribbon__arrow_visible");
       } else (this.ribbonArrowLeft.classList.add("ribbon__arrow_visible"));
     });
